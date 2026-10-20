@@ -38,6 +38,12 @@ desktop/web.
 
 [ ] Filtros de busca por nome ou categoria.
 
+### Links para o diagrama e o datamodel 
+
+datamodel: https://datamodeler.redgate-platform.com/doc/ZAAESEld4jZygl54PHcAS2VNImU7yACp
+
+diagrama: https://canva.link/stjrtf4o6z54oi7
+
 ### 📋 Pré-requisitos para Rodar Localmente
 
 - JDK 21 (ou superior compatível)
