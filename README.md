@@ -48,21 +48,21 @@ diagrama: https://canva.link/stjrtf4o6z54oi7
 
 - JDK 21 (ou superior compatível)
 - Apache Maven instalado (`mvn` disponível no terminal)
-- PostgreSQL instalado/rodando e acessível
+- PostgreSQL 18.6 instalado/rodando (ou via Docker Compose: `docker compose up -d`)
 
 ### ⚙️ Configuração e execução (application.properties)
 
 Configurações sensíveis e detalhes do banco de dados não são mantidos no repositório. Você precisa configurar o arquivo localmente.
 
 1. Navegue até o diretório `src/main/resources/`.
-2. Crie um arquivo chamado `application.properties` (que é ignorado pelo Git).
+2. Crie um arquivo chamado `application.properties` (que é ignorado pelo Git) ou copie de `application-example.properties`.
 3. Adicione o seguinte conteúdo base e ajuste de acordo com as configurações em sua máquina:
 
 ```properties
 spring.application.name=blue-hawk
 
-# Configurações do PostgreSQL
-spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+# Configurações do PostgreSQL 18.6
+spring.datasource.url=jdbc:postgresql://localhost:5432/blue_hawk
 spring.datasource.username=postgres
 spring.datasource.password=sua_senha_aqui
 spring.datasource.driver-class-name=org.postgresql.Driver
@@ -84,6 +84,11 @@ spring.mvc.problemdetails.enabled=true
 # JWT Secreto (apenas exemplo para dev local, 32+ caracteres)
 security.jwt.secret=9a3f4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a
 security.jwt.expiration-seconds=86400
+```
+
+Para subir o banco PostgreSQL 18.6 rapidamente com Docker:
+```bash
+docker compose up -d
 ```
 
 Com o banco de dados rodando e o arquivo configurado, na raiz do repositório inicie o backend usando o comando Maven:
