@@ -14,6 +14,7 @@ import com.example.blue_hawk.application.usecase.boardgame.DeleteBoardgameUseCas
 import com.example.blue_hawk.application.usecase.boardgame.GetBoardgameUseCase;
 import com.example.blue_hawk.application.usecase.boardgame.ListBoardgameUseCase;
 import com.example.blue_hawk.application.usecase.boardgame.UpdateBoardgameUseCase;
+import com.example.blue_hawk.presentation.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -132,8 +133,8 @@ public class BoardgameController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ApiResponse<Void> delete(@PathVariable String id) {
         deleteBoardgameUseCase.handle(new DeleteBoardgameCommand(id));
-        return ResponseEntity.noContent().build();
+        return ApiResponse.empty();
     }
 }

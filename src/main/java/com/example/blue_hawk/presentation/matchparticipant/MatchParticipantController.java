@@ -14,6 +14,7 @@ import com.example.blue_hawk.application.usecase.matchParticipant.DeleteMatchPar
 import com.example.blue_hawk.application.usecase.matchParticipant.GetMatchParticipantUseCase;
 import com.example.blue_hawk.application.usecase.matchParticipant.ListMatchParticipantUseCase;
 import com.example.blue_hawk.application.usecase.matchParticipant.UpdateMatchParticipantUseCase;
+import com.example.blue_hawk.presentation.dto.ApiResponse;
 import com.example.blue_hawk.presentation.matchparticipant.dto.MatchParticipantRequest;
 import com.example.blue_hawk.presentation.matchparticipant.dto.MatchParticipantResponse;
 import org.springframework.http.HttpStatus;
@@ -101,12 +102,12 @@ public class MatchParticipantController {
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<Void> delete(@PathVariable("uuid") String uuid) {
+    public ApiResponse<Void> delete(@PathVariable("uuid") String uuid) {
         deleteMatchParticipantUseCase.handle(new DeleteMatchParticipantCommand(uuid));
-        return ResponseEntity.noContent().build();
+        return ApiResponse.empty();
     }
 
-    // ── helpers ──────────────────────────────────────────────────────────────
+    // ── helpers ─────────────────────────────────────────────────────────────
 
     private MatchParticipantResponse toResponse(CreateMatchParticipantOutput o) {
         return new MatchParticipantResponse(o.id(), o.matchId(), o.userId());

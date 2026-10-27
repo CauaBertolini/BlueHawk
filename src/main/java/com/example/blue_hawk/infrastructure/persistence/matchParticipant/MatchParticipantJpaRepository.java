@@ -19,4 +19,6 @@ public interface MatchParticipantJpaRepository extends JpaRepository<MatchPartic
             @Param("matchId") UUID matchId,
             @Param("userId") UUID userId,
             Pageable pageable);
+
+    long countByMatchId(UUID matchId);
 }

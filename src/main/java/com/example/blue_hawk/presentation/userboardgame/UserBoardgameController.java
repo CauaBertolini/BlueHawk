@@ -14,6 +14,7 @@ import com.example.blue_hawk.application.usecase.userboardgame.DeleteUserBoardga
 import com.example.blue_hawk.application.usecase.userboardgame.GetUserBoardgameUseCase;
 import com.example.blue_hawk.application.usecase.userboardgame.ListUserBoardgameUseCase;
 import com.example.blue_hawk.application.usecase.userboardgame.UpdateUserBoardgameUseCase;
+import com.example.blue_hawk.presentation.dto.ApiResponse;
 import com.example.blue_hawk.presentation.userboardgame.dto.UserBoardgameRequest;
 import com.example.blue_hawk.presentation.userboardgame.dto.UserBoardgameResponse;
 import org.springframework.http.HttpStatus;
@@ -64,7 +65,7 @@ public class UserBoardgameController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserBoardgameResponse> getById(@PathVariable("id") String id) {
+    public ResponseEntity<UserBoardgameResponse> getById(@PathVariable String id) {
         GetUserBoardgameQuery query = new GetUserBoardgameQuery(id);
         GetUserBoardgameOutput output = getUserBoardgameUseCase.handle(query);
         return ResponseEntity.ok(new UserBoardgameResponse(output.id(), output.userId(), output.boardgameId()));
@@ -89,7 +90,7 @@ public class UserBoardgameController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UserBoardgameResponse> update(
-            @PathVariable("id") String id,
+            @PathVariable String id,
             @RequestBody UserBoardgameRequest request) {
 
         UpdateUserBoardgameCommand command = new UpdateUserBoardgameCommand(
@@ -102,9 +103,9 @@ public class UserBoardgameController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") String id) {
+    public ApiResponse<Void> delete(@PathVariable String id) {
         DeleteUserBoardgameCommand command = new DeleteUserBoardgameCommand(id);
         deleteUserBoardgameUseCase.handle(command);
-        return ResponseEntity.noContent().build();
+        return ApiResponse.empty();
     }
 }

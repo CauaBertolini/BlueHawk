@@ -15,6 +15,7 @@ import com.example.blue_hawk.application.usecase.publisher.DeletePublisherUseCas
 import com.example.blue_hawk.application.usecase.publisher.GetPublisherUseCase;
 import com.example.blue_hawk.application.usecase.publisher.ListPublisherUseCase;
 import com.example.blue_hawk.application.usecase.publisher.UpdatePublisherUseCase;
+import com.example.blue_hawk.presentation.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -117,8 +118,8 @@ public class PublisherController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ApiResponse<Void> delete(@PathVariable String id) {
         deletePublisherUseCase.handle(new DeletePublisherCommand(id));
-        return ResponseEntity.noContent().build();
+        return ApiResponse.empty();
     }
 }

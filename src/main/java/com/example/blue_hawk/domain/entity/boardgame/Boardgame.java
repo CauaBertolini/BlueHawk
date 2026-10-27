@@ -7,12 +7,12 @@ public class Boardgame {
     private String name;
     private String description;
     private int releaseYear;
-    private String playerNumber;
+    private Integer playerNumber;
     private int playTime;
 
     public Boardgame() {}
 
-    public Boardgame(String name, String description, int releaseYear, String playerNumber, int playTime) {
+    public Boardgame(String name, String description, int releaseYear, Integer playerNumber, int playTime) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
@@ -21,7 +21,7 @@ public class Boardgame {
         this.playTime = playTime;
     }
 
-    public Boardgame(UUID id, String name, String description, int releaseYear, String playerNumber, int playTime) {
+    public Boardgame(UUID id, String name, String description, int releaseYear, Integer playerNumber, int playTime) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -62,11 +62,11 @@ public class Boardgame {
         this.releaseYear = releaseYear;
     }
 
-    public String getPlayerNumber() {
+    public Integer getPlayerNumber() {
         return playerNumber;
     }
 
-    public void setPlayerNumber(String playerNumber) {
+    public void setPlayerNumber(Integer playerNumber) {
         this.playerNumber = playerNumber;
     }
 
