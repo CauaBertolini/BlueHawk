@@ -30,11 +30,9 @@ public class BoardgameJpaEntity {
     @Column(name = "id", nullable = false, updatable = false, length = 36)
     private UUID id;
 
-    @JdbcTypeCode(Types.CHAR)
     @Column(name = "name", nullable = false)
     private String name;
 
-    @JdbcTypeCode(Types.CHAR)
     @Column(name = "description", nullable = false)
     private String description;
 
