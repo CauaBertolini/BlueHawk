@@ -5,7 +5,7 @@ public record UpdateBoardgameOutput(
         String name,
         String description,
         Integer releaseYear,
-        String playerNumber,
+        Integer playerNumber,
         Integer playTime
 ) {
 }

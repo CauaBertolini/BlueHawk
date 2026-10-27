@@ -51,16 +51,14 @@ public class MatchRepositoryImpl implements IMatchRepository {
     private MatchJpaEntity toJpaEntity(Match domain) {
         return new MatchJpaEntity(
                 domain.getId(),
-                domain.getUserBoardgameId(),
-                domain.getMaxUsers()
+                domain.getUserBoardgameId()
         );
     }
 
     private Match toDomain(MatchJpaEntity entity) {
         return new Match(
                 entity.getId(),
-                entity.getUserBoardgameId(),
-                entity.getMaxUsers()
+                entity.getUserBoardgameId()
         );
     }
 }

@@ -29,7 +29,4 @@ public class MatchJpaEntity {
     @JdbcTypeCode(Types.CHAR)
     @Column(name = "userboardgame_id", nullable = false, length = 36)
     private UUID userBoardgameId;
-
-    @Column(name = "max_users", nullable = false)
-    private Integer maxUsers;
 }

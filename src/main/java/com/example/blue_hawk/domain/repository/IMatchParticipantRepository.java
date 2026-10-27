@@ -17,4 +17,6 @@ public interface IMatchParticipantRepository {
     void deleteById(UUID id);
 
     boolean existsById(UUID id);
+
+    long countByMatchId(UUID matchId);
 }

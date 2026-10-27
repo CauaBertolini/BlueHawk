@@ -42,9 +42,8 @@ public class BoardgameJpaEntity {
     @Column(name = "release_date")
     private int releaseYear;
 
-    @Convert(converter = StringIntConverter.class)
-    @Column(name = "player_number")
-    private String playerNumber;
+    @Column(name = "player_number", nullable = false)
+    private Integer playerNumber;
 
     @JdbcTypeCode(Types.INTEGER)
     @Column(name = "gameplay_time")
@@ -62,20 +61,6 @@ public class BoardgameJpaEntity {
         public Integer convertToEntityAttribute(Date dbData) {
             if (dbData == null) return null;
             return dbData.toLocalDate().getYear();
-        }
-    }
-
-    @Converter
-    public static class StringIntConverter implements AttributeConverter<String, Integer> {
-        @Override
-        public Integer convertToDatabaseColumn(String attribute) {
-            if (attribute == null) return null;
-            try { return Integer.parseInt(attribute); } catch (NumberFormatException e) { return 0; }
-        }
-
-        @Override
-        public String convertToEntityAttribute(Integer dbData) {
-            return dbData == null ? null : String.valueOf(dbData);
         }
     }
 }

@@ -16,6 +16,7 @@ import com.example.blue_hawk.application.usecase.user.DeleteUserUseCase;
 import com.example.blue_hawk.application.usecase.user.GetUserUseCase;
 import com.example.blue_hawk.application.usecase.user.ListUserUseCase;
 import com.example.blue_hawk.application.usecase.user.UpdateUserUseCase;
+import com.example.blue_hawk.presentation.dto.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -91,10 +92,10 @@ public class UserController {
 
     @PatchMapping("/{uuid}/password")
     @PreAuthorize("authentication.name == #uuid.toString()")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void changePassword(@PathVariable UUID uuid, @Valid @RequestBody ChangeUserPasswordCommand body) {
+    public ApiResponse<Void> changePassword(@PathVariable UUID uuid, @Valid @RequestBody ChangeUserPasswordCommand body) {
         changeUserPasswordUseCase.handle(
                 new ChangeUserPasswordCommand(uuid.toString(), body.currentPassword(), body.newPassword()));
+        return ApiResponse.empty();
     }
 
     @GetMapping("/{uuid}")
@@ -112,8 +113,8 @@ public class UserController {
 
     @DeleteMapping("/{uuid}")
     @PreAuthorize(OWNER_OR_ADMIN)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable UUID uuid) {
+    public ApiResponse<Void> delete(@PathVariable UUID uuid) {
         deleteUserUseCase.handle(new DeleteUserCommand(uuid.toString()));
+        return ApiResponse.empty();
     }
 }

@@ -4,7 +4,7 @@ public record CreateBoardgameCommand(
         String name,
         String description,
         Integer releaseYear,
-        String playerNumber,
+        Integer playerNumber,
         Integer playTime
 ) {
 }

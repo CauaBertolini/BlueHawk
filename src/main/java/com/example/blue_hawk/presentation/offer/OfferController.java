@@ -17,6 +17,7 @@ import com.example.blue_hawk.application.usecase.offer.GetOfferUseCase;
 import com.example.blue_hawk.application.usecase.offer.ListOfferUseCase;
 import com.example.blue_hawk.application.usecase.offer.PatchOfferUseCase;
 import com.example.blue_hawk.application.usecase.offer.UpdateOfferUseCase;
+import com.example.blue_hawk.presentation.dto.ApiResponse;
 import com.example.blue_hawk.presentation.offer.dto.OfferPatchRequest;
 import com.example.blue_hawk.presentation.offer.dto.OfferRequest;
 import com.example.blue_hawk.presentation.offer.dto.OfferResponse;
@@ -130,12 +131,12 @@ public class OfferController {
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<Void> delete(@PathVariable("uuid") String uuid) {
+    public ApiResponse<Void> delete(@PathVariable("uuid") String uuid) {
         deleteOfferUseCase.handle(new DeleteOfferCommand(uuid));
-        return ResponseEntity.noContent().build();
+        return ApiResponse.empty();
     }
 
-    // ── helpers ──────────────────────────────────────────────────────────────
+    // ── helpers ─────────────────────────────────────────────────────────────
 
     private OfferResponse toResponse(CreateOfferOutput o) {
         return new OfferResponse(o.id(), o.userBoardgameId(), o.price(),

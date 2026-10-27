@@ -14,6 +14,7 @@ import com.example.blue_hawk.application.usecase.match.DeleteMatchUseCase;
 import com.example.blue_hawk.application.usecase.match.GetMatchUseCase;
 import com.example.blue_hawk.application.usecase.match.ListMatchUseCase;
 import com.example.blue_hawk.application.usecase.match.UpdateMatchUseCase;
+import com.example.blue_hawk.presentation.dto.ApiResponse;
 import com.example.blue_hawk.presentation.match.dto.MatchRequest;
 import com.example.blue_hawk.presentation.match.dto.MatchResponse;
 import org.springframework.http.HttpStatus;
@@ -55,8 +56,7 @@ public class MatchController {
     @PostMapping
     public ResponseEntity<MatchResponse> create(@RequestBody MatchRequest request) {
         CreateMatchCommand command = new CreateMatchCommand(
-                request.userBoardgameId(),
-                request.maxUsers()
+                request.userBoardgameId()
         );
         CreateMatchOutput output = createMatchUseCase.handle(command);
         return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(output));
@@ -92,20 +92,19 @@ public class MatchController {
 
         UpdateMatchCommand command = new UpdateMatchCommand(
                 uuid,
-                request.userBoardgameId(),
-                request.maxUsers()
+                request.userBoardgameId()
         );
         UpdateMatchOutput output = updateMatchUseCase.handle(command);
         return ResponseEntity.ok(toResponse(output));
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<Void> delete(@PathVariable("uuid") String uuid) {
+    public ApiResponse<Void> delete(@PathVariable("uuid") String uuid) {
         deleteMatchUseCase.handle(new DeleteMatchCommand(uuid));
-        return ResponseEntity.noContent().build();
+        return ApiResponse.empty();
     }
 
-    // ── helpers ──────────────────────────────────────────────────────────────
+    // ── helpers ─────────────────────────────────────────────────────────────
 
     private MatchResponse toResponse(CreateMatchOutput o) {
         return new MatchResponse(o.id(), o.userBoardgameId(), o.maxUsers());

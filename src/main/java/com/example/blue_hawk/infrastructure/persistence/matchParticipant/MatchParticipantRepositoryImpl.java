@@ -48,6 +48,11 @@ public class MatchParticipantRepositoryImpl implements IMatchParticipantReposito
         return jpaRepository.existsById(id);
     }
 
+    @Override
+    public long countByMatchId(UUID matchId) {
+        return jpaRepository.countByMatchId(matchId);
+    }
+
     private MatchParticipantJpaEntity toJpaEntity(MatchParticipant domain) {
         return new MatchParticipantJpaEntity(
                 domain.getId(),
