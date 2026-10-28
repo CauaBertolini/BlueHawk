@@ -45,11 +45,12 @@ jobs:
     steps:
       # 1. Realiza o login na Azure usando uma Service Principal
       - name: Login na Azure
-        uses: azure/login@v2
+        uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          "clientId": "seu-client-id",
+          "clientSecret": "seu-client-secret",
+          "subscriptionId": "seu-subscription-id",
+          "tenantId": "seu-tenant-id"
 
       # 2. Realiza o deploy utilizando a sessão autenticada
       - name: Deploy no Azure Web App
