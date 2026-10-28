@@ -53,5 +53,7 @@ jobs:
       - name: Deploy no Azure Web App
         uses: azure/webapps-deploy@v3
         with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           app-name: bluehawk
           images: ghcr.io/cauabertolini/bluehawk:${{ github.sha }}
