@@ -42,12 +42,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      id-token: write # Necessário para o login OIDC
+      contents: read
     steps:
-      # 1. Realiza o login na Azure usando uma Service Principal
+      # 1. Realiza o login na Azure via OIDC (federated credential criada pelo Centro de Implantação)
       - name: Login na Azure
         uses: azure/login@v2
         with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6312971B82604232AB35E8A373731954 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_11AD725961C047E48250EECFA6518775 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D54CB150E7764EFAB2CF57F9612A7EAC }}
 
       # 2. Realiza o deploy utilizando a sessão autenticada
       - name: Deploy no Azure Web App
