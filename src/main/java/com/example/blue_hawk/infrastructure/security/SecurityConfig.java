@@ -42,6 +42,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/users", "/users/authenticate").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/error").permitAll()
+                        // Landing page estática (src/main/resources/static/index.html)
+                        .requestMatchers(HttpMethod.GET, "/", "/index.html").permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .addFilterAfter(jwtRotationFilter, BearerTokenAuthenticationFilter.class)

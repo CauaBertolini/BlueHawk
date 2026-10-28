@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BlueHawk API</title>
+  <meta name="description" content="API REST do BoardGame Hub: coleção pessoal e marketplace de jogos de tabuleiro.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d4ed8'/%3E%3Ccircle cx='10' cy='10' r='2.6' fill='white'/%3E%3Ccircle cx='22' cy='22' r='2.6' fill='white'/%3E%3Ccircle cx='16' cy='16' r='2.6' fill='white'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --text: #111827;
+      --muted: #5b6474;
+      --border: #e3e7ef;
+      --accent: #1d4ed8;
+      --accent-text: #ffffff;
+      --ok: #15803d;
+      --warn: #b45309;
+      --err: #b91c1c;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117;
+        --surface: #161b24;
+        --text: #e6e9ef;
+        --muted: #9aa3b2;
+        --border: #262d3a;
+        --accent: #5b8cff;
+        --accent-text: #0d1117;
+        --ok: #4ade80;
+        --warn: #fbbf24;
+        --err: #f87171;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      width: min(880px, 100%);
+      margin: 0 auto;
+      padding: 72px 20px 48px;
+      flex: 1;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+    .logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: var(--accent);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      padding: 6px;
+    }
+    .logo span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-text);
+      align-self: center;
+      justify-self: center;
+    }
+    .logo span:nth-child(1) { grid-area: 1 / 1; }
+    .logo span:nth-child(2) { grid-area: 2 / 2; }
+    .logo span:nth-child(3) { grid-area: 3 / 3; }
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+      margin: 0 0 16px;
+      letter-spacing: -0.02em;
+    }
+    .lead {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 60ch;
+      margin: 0 0 32px;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 56px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 11px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--surface);
+    }
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--accent-text);
+    }
+    .btn:hover { filter: brightness(1.08); }
+    .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      margin-bottom: 40px;
+      font-size: 0.95rem;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--warn);
+      flex-shrink: 0;
+    }
+    .status[data-state="ok"] .dot { background: var(--ok); }
+    .status[data-state="error"] .dot { background: var(--err); }
+    .status .detail { color: var(--muted); margin-left: auto; }
+    h2 {
+      font-size: 1.1rem;
+      margin: 0 0 16px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+    }
+    .card h3 { margin: 0 0 6px; font-size: 1rem; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    footer {
+      text-align: center;
+      padding: 24px 20px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    code {
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><span></span><span></span><span></span></div>
+      BlueHawk
+    </div>
+
+    <h1>BoardGame Hub API</h1>
+    <p class="lead">
+      Backend da plataforma para organizar sua coleção de jogos de tabuleiro
+      e encontrar jogos que outros usuários estão vendendo.
+    </p>
+
+    <div class="actions">
+      <a class="btn primary" href="/swagger-ui/index.html">Abrir documentação (Swagger)</a>
+      <a class="btn" href="/v3/api-docs">Especificação OpenAPI</a>
+    </div>
+
+    <div class="status" id="status" data-state="loading" role="status">
+      <span class="dot" aria-hidden="true"></span>
+      <span id="status-text">Verificando a API…</span>
+      <span class="detail" id="status-detail"></span>
+    </div>
+
+    <h2>O que a API oferece</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Usuários</h3>
+        <p>Cadastro, login com JWT e troca de senha.</p>
+      </div>
+      <div class="card">
+        <h3>Coleção</h3>
+        <p>CRUD de boardgames, editoras e da coleção pessoal de cada usuário.</p>
+      </div>
+      <div class="card">
+        <h3>Marketplace</h3>
+        <p>Ofertas de venda de jogos publicadas pelos usuários.</p>
+      </div>
+      <div class="card">
+        <h3>Partidas</h3>
+        <p>Registro de partidas e dos participantes de cada uma.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Rotas protegidas exigem o cabeçalho <code>Authorization: Bearer &lt;token&gt;</code>.
+  </footer>
+
+  <script>
+    (async () => {
+      const box = document.getElementById('status');
+      const text = document.getElementById('status-text');
+      const detail = document.getElementById('status-detail');
+      const started = performance.now();
+      try {
+        const res = await fetch('/v3/api-docs', { headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const spec = await res.json();
+        const routes = Object.keys(spec.paths || {}).length;
+        box.dataset.state = 'ok';
+        text.textContent = 'API online';
+        detail.textContent = routes + ' rotas · ' + Math.round(performance.now() - started) + ' ms';
+      } catch (e) {
+        box.dataset.state = 'error';
+        text.textContent = 'Não foi possível consultar a API';
+        detail.textContent = e.message;
+      }
+    })();
+  </script>
+</body>
+</html>
