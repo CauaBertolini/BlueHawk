@@ -8,7 +8,7 @@ Repositório inicial do projeto de gerenciamento e marketplace de jogos de tabul
 A ideia do projeto é criar uma plataforma onde o usuário consiga cadastrar e organizar sua própria coleção de
 boardgames (CRUD completo) e também navegar por um feed para encontrar jogos que outros usuários estejam vendendo.
 
-### 📌 Sobre o Projeto
+### 📌 Sobre o Projetop
 
 O desenvolvimento está dividido em duas partes principais:
 
