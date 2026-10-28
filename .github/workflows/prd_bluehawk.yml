@@ -47,10 +47,7 @@ jobs:
       - name: Login na Azure
         uses: azure/login@v1
         with:
-          "clientId": "seu-client-id",
-          "clientSecret": "seu-client-secret",
-          "subscriptionId": "seu-subscription-id",
-          "tenantId": "seu-tenant-id"
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # 2. Realiza o deploy utilizando a sessão autenticada
       - name: Deploy no Azure Web App
